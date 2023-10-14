@@ -14,12 +14,36 @@ const FiltrowanieX = class {
     }
 
     start() {
-        const messages = document.querySelectorAll('.containerCozyBounded-ujftM0');
+        this.observer = new MutationObserver(this.handleMutations.bind(this));
+
+        const targetNode = document.querySelector('.messages-3amgkR'); // Zaktualizowany selektor
+
+        if (targetNode) {
+            this.observer.observe(targetNode, { childList: true, subtree: true });
+            this.filterMessages(targetNode);
+        }
+    }
+
+    stop() {
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+    }
+
+    handleMutations(mutationsList) {
+        for (const mutation of mutationsList) {
+            if (mutation.addedNodes.length > 0) {
+                this.filterMessages(mutation.target);
+            }
+        }
+    }
+
+    filterMessages(container) {
+        const messages = container.querySelectorAll('.message-2qnXI6');
 
         for (const message of messages) {
             const messageText = message.textContent;
 
-            // Sprawdź, czy wiadomość zawiera zablokowane ID użytkowników
             for (const userId of this.blockedUserIds) {
                 if (messageText.includes(userId)) {
                     this.hideMessage(message);
@@ -27,7 +51,6 @@ const FiltrowanieX = class {
                 }
             }
 
-            // Sprawdź, czy wiadomość zawiera zablokowane słowa kluczowe
             for (const keyword of this.blockedKeywords) {
                 if (messageText.includes(keyword)) {
                     this.hideMessage(message);
@@ -35,13 +58,8 @@ const FiltrowanieX = class {
                 }
             }
 
-            // Usuń linki z wiadomości
             message.innerHTML = this.removeLinks(messageText);
         }
-    }
-
-    stop() {
-        // Zatrzymaj filtrowanie
     }
 
     hideMessage(message) {
