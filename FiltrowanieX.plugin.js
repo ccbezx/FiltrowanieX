@@ -1,9 +1,9 @@
 /**
     * @name FiltrowanieX
-    * @source <tu wstaw źródło, np. URL do repozytorium lub Twojego skryptu>
+    * @source https://github.com/ccbezx/FiltrowanieX/blob/main/FiltrowanieX.plugin.js
     * @description Plugin do filtrowania wiadomości w Discord.
-    * @updateUrl <tu wstaw URL do aktualizacji, jeśli to dotyczy>
-    * @website <tu wstaw stronę internetową lub repozytorium projektu>
+    * @updateUrl https://github.com/ccbezx/FiltrowanieX/raw/main/FiltrowanieX.plugin.js
+    * @website https://github.com/ccbezx/FiltrowanieX
     * @version 0.0.1
     */
 
